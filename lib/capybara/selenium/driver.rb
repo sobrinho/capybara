@@ -101,7 +101,14 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
         @browser.navigate.to("about:blank")
       rescue Selenium::WebDriver::Error::UnhandledAlertError
         # This error is thrown if an unhandled alert is on the page
-        # the alert appears to be automatically dismissed so just retry 
+        # Firefox appears to automatically dismiss this alert, chrome does not
+        # We'll try to accept it
+        begin
+          @browser.switch_to.alert.accept
+        rescue Selenium::WebDriver::Error::NoAlertPresentError
+          # The alert is now gone - nothing to do
+        end
+        # try cleaning up the browser again
         retry
       end
     end

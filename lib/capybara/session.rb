@@ -531,8 +531,10 @@ module Capybara
     #
     # Execute the block, accepting a alert.
     #
-    # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
+    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def accept_alert(options={}, &blk)
       driver.accept_modal(:alert, options, &blk)
@@ -542,8 +544,10 @@ module Capybara
     #
     # Execute the block, accepting a confirm.
     #
-    # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
+    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def accept_confirm(options={}, &blk)
       driver.accept_modal(:confirm, options, &blk)
@@ -553,8 +557,10 @@ module Capybara
     #
     # Execute the block, dismissing a confirm.
     #
-    # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @option options [Numeric] :wait  How long to wait for the modal to appear after executing the block.
+    # @option options [String, Regexp] :text      Text or regex to match against the text in the modal
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def dismiss_confirm(options={}, &blk)
       driver.dismiss_modal(:confirm, options, &blk)
@@ -566,6 +572,8 @@ module Capybara
     #
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
     # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def accept_prompt(options={}, &blk)
       driver.accept_modal(:prompt, options, &blk)
@@ -577,6 +585,8 @@ module Capybara
     #
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
     # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def dismiss_prompt(options={}, &blk)
       driver.dismiss_modal(:prompt, options, &blk)
@@ -589,6 +599,8 @@ module Capybara
     # @param [String] response   Response to provide to the prompt
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
     # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
+    # @return [String]  the message shown in the modal
+    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
     #
     def respond_to_prompt(response, options={}, &blk)
       driver.accept_modal(:prompt, options.merge(response: response), &blk)

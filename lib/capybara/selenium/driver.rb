@@ -254,11 +254,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
       modal = wait.until do
         alert = @browser.switch_to.alert
         regexp = options[:text].is_a?(Regexp) ? options[:text] : Regexp.escape(options[:text].to_s)
-        if alert && alert.text.match(regexp)
-          alert
-        else
-          nil
-        end
+        alert.text.match(regexp) ? alert : nil
       end
     rescue Selenium::WebDriver::Error::TimeOutError
       raise Capybara::ModalNotFound.new("Unable to find modal dialog#{" with #{options[:text]}" if options[:text]}")

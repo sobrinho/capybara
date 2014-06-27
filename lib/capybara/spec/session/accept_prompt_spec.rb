@@ -17,7 +17,7 @@ Capybara::SpecHelper.spec '#accept_prompt', :requires => [:modals] do
     expect(message).to eq('Prompt opened')
   end
   
-  it "should accept the prompt" do
+  it "should accept the prompt with a response" do
     @session.accept_prompt with: 'the response' do
       @session.click_link('Open prompt')
     end

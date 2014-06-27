@@ -16,4 +16,18 @@ Capybara::SpecHelper.spec '#accept_prompt', :requires => [:modals] do
     end
     expect(message).to eq('Prompt opened')
   end
+  
+  it "should accept the prompt" do
+    @session.accept_prompt with: 'the response' do
+      @session.click_link('Open prompt')
+    end
+    expect(@session).to have_xpath("//a[@id='open-prompt' and @response='the response']")
+  end
+
+  it "should return the message presented" do
+    message = @session.accept_prompt with: 'the response' do
+      @session.click_link('Open prompt')
+    end
+    expect(message).to eq('Prompt opened')
+  end
 end

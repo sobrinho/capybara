@@ -48,7 +48,7 @@ module Capybara
     ]
     MODAL_METHODS = [
       :accept_alert, :accept_confirm, :dismiss_confirm, :accept_prompt,
-      :dismiss_prompt, :respond_to_prompt
+      :dismiss_prompt
     ]
     DSL_METHODS = NODE_METHODS + SESSION_METHODS + MODAL_METHODS
 
@@ -570,6 +570,7 @@ module Capybara
     #
     # Execute the block, accepting a prompt.
     #
+    # @option options [String] :with   Response to provide to the prompt
     # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
     # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
     # @return [String]  the message shown in the modal
@@ -590,20 +591,6 @@ module Capybara
     #
     def dismiss_prompt(options={}, &blk)
       driver.dismiss_modal(:prompt, options, &blk)
-    end
-
-    ##
-    #
-    # Execute the block, responding with the provided value.
-    #
-    # @param [String] response   Response to provide to the prompt
-    # @option options [Numeric] :wait  How long to wait for the prompt to appear after executing the block.
-    # @option options [String, Regexp] :text      Text or regex to match against the text in the prompt
-    # @return [String]  the message shown in the modal
-    # @raise [Capybara::ModalNotFound]  if modal dialog hasn't been found
-    #
-    def respond_to_prompt(response, options={}, &blk)
-      driver.accept_modal(:prompt, options.merge(response: response), &blk)
     end
 
     ##
